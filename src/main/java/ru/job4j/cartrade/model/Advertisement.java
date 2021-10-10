@@ -2,6 +2,7 @@ package ru.job4j.cartrade.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,8 +16,11 @@ public class Advertisement {
     private String description;
     private boolean sold;
 
-    @OneToMany(mappedBy = "advertisements")
-    private List<Photo> photos = new ArrayList<>();
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Photo> photos = new ArrayList<Photo>();
 
     @ManyToOne
     @JoinColumn(name = "car_id")
@@ -27,13 +31,15 @@ public class Advertisement {
     private User user;
 
     public static Advertisement of(
-            String description, Boolean sold, List<Photo> photos, Car car, User user) {
+            String description, Boolean sold, List<Photo> photos,
+            Car car, User user, Date created) {
         Advertisement adv = new Advertisement();
         adv.description = description;
         adv.sold = sold;
         adv.photos = photos;
         adv.car = car;
         adv.user = user;
+        adv.created = created;
         return adv;
     }
 
@@ -85,6 +91,14 @@ public class Advertisement {
         this.user = user;
     }
 
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -111,6 +125,7 @@ public class Advertisement {
                 + ", photo=" + photos
                 + ", car=" + car
                 + ", user=" + user
+                + ", created=" + created
                 + '}';
     }
 }

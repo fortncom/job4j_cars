@@ -12,13 +12,11 @@ public class Photo {
     private int id;
     private String name;
     private String path;
-    @ManyToOne
-    @JoinColumn(name = "advertisement_id")
-    private Advertisement advertisement;
 
-    public static Photo of(String name) {
+    public static Photo of(String name, String path) {
         Photo photo = new Photo();
         photo.setName(name);
+        photo.setPath(path);
         return photo;
     }
 

@@ -4,19 +4,24 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "photos")
-public class Photo {
+@Table(name = "models")
+public class Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(unique = true)
     private String name;
 
-    public static Photo of(String name) {
-        Photo photo = new Photo();
-        photo.setName(name);
-        return photo;
+    @OneToOne
+    @JoinColumn(name = "body_id")
+    private Body body;
+
+    public static Model of(String name, Body body) {
+        Model model = new Model();
+        model.setName(name);
+        return model;
     }
 
     public int getId() {
@@ -35,6 +40,14 @@ public class Photo {
         this.name = name;
     }
 
+    public Body getBody() {
+        return body;
+    }
+
+    public void setBody(Body body) {
+        this.body = body;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -43,8 +56,8 @@ public class Photo {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Photo photo = (Photo) o;
-        return id == photo.id;
+        Model model = (Model) o;
+        return id == model.id;
     }
 
     @Override
@@ -54,9 +67,10 @@ public class Photo {
 
     @Override
     public String toString() {
-        return "Photo{"
+        return "Model{"
                 + "id=" + id
                 + ", name='" + name + '\''
+                + ", body='" + body + '\''
                 + '}';
     }
 }

@@ -16,13 +16,13 @@ public class Car {
     private Mark mark;
 
     @ManyToOne
-    @JoinColumn(name = "body_id")
-    private Body body;
+    @JoinColumn(name = "model_id")
+    private Model model;
 
-    public static Car of(Mark mark, Body body) {
+    public static Car of(Mark mark, Model model) {
         Car car = new Car();
         car.setMark(mark);
-        car.setBody(body);
+        car.setModel(model);
         return car;
     }
 
@@ -42,12 +42,12 @@ public class Car {
         this.mark = mark;
     }
 
-    public Body getBody() {
-        return body;
+    public Model getModel() {
+        return model;
     }
 
-    public void setBody(Body body) {
-        this.body = body;
+    public void setModel(Model model) {
+        this.model = model;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Car {
         return "Car{"
                 + "id=" + id
                 + ", mark=" + mark
-                + ", body=" + body
+                + ", model=" + model
                 + '}';
     }
 }

@@ -14,13 +14,14 @@ public class Advertisement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String description;
+    private int price;
     private boolean sold;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Photo> photos = new ArrayList<Photo>();
+    private List<Photo> photos = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "car_id")
@@ -31,15 +32,15 @@ public class Advertisement {
     private User user;
 
     public static Advertisement of(
-            String description, Boolean sold, List<Photo> photos,
-            Car car, User user, Date created) {
+            String description, Boolean sold, Integer price, List<Photo> photos,
+            Car car, User user) {
         Advertisement adv = new Advertisement();
         adv.description = description;
         adv.sold = sold;
+        adv.price = price;
         adv.photos = photos;
         adv.car = car;
         adv.user = user;
-        adv.created = created;
         return adv;
     }
 
@@ -99,6 +100,14 @@ public class Advertisement {
         this.created = created;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -122,6 +131,7 @@ public class Advertisement {
                 + "id=" + id
                 + ", description='" + description + '\''
                 + ", sold=" + sold
+                + ", price=" + price
                 + ", photo=" + photos
                 + ", car=" + car
                 + ", user=" + user

@@ -25,5 +25,7 @@
         <mapping class="ru.job4j.cartrade.model.Photo" />
         <mapping class="ru.job4j.cartrade.model.Role" />
         <mapping class="ru.job4j.cartrade.model.User" />
+        <mapping class="ru.job4j.cartrade.model.Model" />
+        <mapping class="ru.job4j.cartrade.model.Filter" />
     </session-factory>
 </hibernate-configuration>

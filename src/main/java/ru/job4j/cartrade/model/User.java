@@ -12,6 +12,7 @@ public class User {
     private int id;
 
     private String name;
+    @Column(unique = true)
     private String email;
     private String password;
 
@@ -22,9 +23,9 @@ public class User {
     public static User of(String name, String email, String password, Role role) {
         User user = new User();
         user.name = name;
-        user.role = role;
         user.email = email;
         user.password = password;
+        user.role = role;
         return user;
     }
 

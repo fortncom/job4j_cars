@@ -1,1 +1,0 @@
-create DATABASE car_trade;

@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "cars")
+@Table(name = "cars", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"mark_id", "model_id"})})
 public class Car {
 
     @Id

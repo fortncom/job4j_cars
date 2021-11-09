@@ -16,9 +16,10 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req,
                          HttpServletResponse resp) throws ServletException, IOException {
-            List<Advertisement> ads = AdvRepositoryImpl.instOf().findAllAds();
-            req.setAttribute("advertisements", ads);
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
+        AdsService service = new AdsService();
+        List<Advertisement> ads = service.findAllAds();
+        req.setAttribute("advertisements", ads);
+        req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 
     @Override

@@ -17,7 +17,8 @@ public class AdvServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req,
                          HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-        Advertisement adv = AdvRepositoryImpl.instOf().findAdvById(id);
+        AdsService service = new AdsService();
+        Advertisement adv = service.findAdvById(id);
         req.setAttribute("adv", adv);
         req.getRequestDispatcher("adv/edit.jsp").forward(req, resp);
     }

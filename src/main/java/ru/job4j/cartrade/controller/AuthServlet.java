@@ -3,6 +3,7 @@ package ru.job4j.cartrade.controller;
 import ru.job4j.cartrade.repository.AdvRepository;
 import ru.job4j.cartrade.repository.AdvRepositoryImpl;
 import ru.job4j.cartrade.model.User;
+import ru.job4j.cartrade.service.AdsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +19,8 @@ public class AuthServlet extends HttpServlet {
             HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        AdvRepository store = AdvRepositoryImpl.instOf();
-        User user = store.findUserByEmail(email);
+        AdsService service = new AdsService();
+        User user = service.findUserByEmail(email);
         if (user == null || !user.getPassword().equals(password)) {
             req.setAttribute("error", "Не верный email или пароль.");
             req.getRequestDispatcher("login.jsp").forward(req, resp);

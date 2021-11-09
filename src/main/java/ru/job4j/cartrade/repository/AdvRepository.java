@@ -16,22 +16,6 @@ public interface AdvRepository {
 
     List<Advertisement> findAdsByFilter(Filter filter);
 
-    List<Car> findAllCars();
-
-    User findUserByEmail(String email);
-
-    Role findRoleById(int id);
-
-    Mark findMarkById(int id);
-
-    Body findBodyById(int id);
-
-    Model findModelById(int id);
-
-    Car findCarById(int id);
-
-    Car findCarByMarkAndModel(int idMark, int idModel);
-
     Photo findPhotoById(int id);
 
     Photo findPhotoByName(String name);
@@ -40,17 +24,5 @@ public interface AdvRepository {
 
     void save(Advertisement adv);
 
-    void save(User user);
-
-    void save(Role role);
-
     void save(Photo photo);
-
-    void save(Car car);
-
-    void save(Mark mark);
-
-    void save(Body body);
-
-    void save(Model model);
 }

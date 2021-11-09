@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ru.job4j.cartrade.repository.AdvRepositoryImpl;
 import ru.job4j.cartrade.model.Car;
+import ru.job4j.cartrade.service.AdsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +22,8 @@ public class CarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req,
                          HttpServletResponse resp) throws ServletException, IOException {
-        List<Car> cars = AdvRepositoryImpl.instOf().findAllCars();
+        AdsService service = new AdsService();
+        List<Car> cars = service.findAllCars();
         resp.setContentType("application/json; charset=utf-8");
         String json = GSON.toJson(cars);
         OutputStream output = resp.getOutputStream();

@@ -1,8 +1,7 @@
 package ru.job4j.cartrade.service;
 
 import ru.job4j.cartrade.model.*;
-import ru.job4j.cartrade.repository.AdvRepository;
-import ru.job4j.cartrade.repository.AdvRepositoryImpl;
+import ru.job4j.cartrade.repository.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,31 +17,55 @@ public class AdsService {
     }
 
     public void saveAdv(Advertisement adv, int markId, int  modelId, String advPhoto) {
-        AdvRepository repository = AdvRepositoryImpl.instOf();
+        AdvRepository advRepository = AdvRepositoryImpl.instOf();
         if (adv.getId() == 0) {
             adv.setCreated(new Date());
         } else {
-            adv.setCreated(repository.findAdvById(adv.getId()).getCreated());
+            adv.setCreated(advRepository.findAdvById(adv.getId()).getCreated());
         }
         List<String> photo = Arrays.asList(advPhoto.split("\\|"));
         List<Photo> photos = new ArrayList<>();
         for (String name : photo) {
-            Photo p = repository.findPhotoByName(name);
+            Photo p = advRepository.findPhotoByName(name);
             if (p == null) {
                 p = Photo.of(name);
-                repository.save(p);
+                advRepository.save(p);
             }
             photos.add(p);
         }
         adv.setPhotos(photos);
-        Car car = repository.findCarByMarkAndModel(markId, modelId);
+        CarRepository carRepository = CarRepositoryImpl.instOf();
+        Car car = carRepository.findCarByMarkAndModel(markId, modelId);
         if (car == null) {
-            Mark mark = repository.findMarkById(markId);
-            Model model = repository.findModelById(modelId);
+            Mark mark = carRepository.findMarkById(markId);
+            Model model = carRepository.findModelById(modelId);
             car = Car.of(mark, model);
-            repository.save(car);
+            carRepository.save(car);
         }
         adv.setCar(car);
-        repository.save(adv);
+        advRepository.save(adv);
+    }
+
+    public User findUserByEmail(String email) {
+        return UserRepositoryImpl.instOf().findUserByEmail(email);
+    }
+
+    public void saveUser(String name, String email, String password, int roleId) {
+        UserRepositoryImpl userRepository = UserRepositoryImpl.instOf();
+        Role role = userRepository.findRoleById(roleId);
+        userRepository.save(User.of(name, email, password, role));
+    }
+
+    public List<Advertisement> findAllAds() {
+        return AdvRepositoryImpl.instOf().findAllAds();
+    }
+
+    public List<Car> findAllCars() {
+       return CarRepositoryImpl.instOf().findAllCars();
+    }
+
+    public Advertisement findAdvById(int id) {
+        AdvRepository advRepository = AdvRepositoryImpl.instOf();
+        return advRepository.findAdvById(id);
     }
 }

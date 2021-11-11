@@ -15,10 +15,10 @@ public class CommonRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(CommonRepository.class.getName());
 
-    private final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+    private static final StandardServiceRegistry REGISTRY = new StandardServiceRegistryBuilder()
             .configure().build();
 
-    private final SessionFactory sf = new MetadataSources(registry).buildMetadata()
+    private static final SessionFactory SF = new MetadataSources(REGISTRY).buildMetadata()
             .buildSessionFactory();
 
     protected <T> T create(T t) {
@@ -36,7 +36,7 @@ public class CommonRepository {
     }
 
     protected <T> T execute(final Function<Session, T> command) {
-        final Session session = sf.openSession();
+        final Session session = SF.openSession();
         final Transaction transaction = session.beginTransaction();
         try {
             T rsl = command.apply(session);

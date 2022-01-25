@@ -1,7 +1,6 @@
 package ru.job4j.cartrade.controller;
 
 import ru.job4j.cartrade.model.Advertisement;
-import ru.job4j.cartrade.repository.AdvRepositoryImpl;
 import ru.job4j.cartrade.service.AdsService;
 
 import javax.servlet.ServletException;

@@ -2,7 +2,6 @@ package ru.job4j.cartrade.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import ru.job4j.cartrade.repository.AdvRepositoryImpl;
 import ru.job4j.cartrade.model.Car;
 import ru.job4j.cartrade.service.AdsService;
 
